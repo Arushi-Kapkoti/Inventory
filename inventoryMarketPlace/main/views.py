@@ -8,6 +8,7 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import logout as logouts
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.urls import reverse_lazy
 # Create your views here.
@@ -31,29 +32,29 @@ def logoutUser(request):
         logouts(request)
         return redirect('login')
 
-class StockList(ListView):
+class StockList(LoginRequiredMixin,ListView):
     model = Inventory
     template_name = 'main/dashboard.html'
     context_object_name = 'items'
 
-class ItemDetail(DetailView):
+class ItemDetail(LoginRequiredMixin,DetailView):
     model = Inventory
     template_name = 'main/item_detail.html'
     context_object_name = 'item'
 
-class CreateItem(CreateView):
+class CreateItem(LoginRequiredMixin,CreateView):
     model = Inventory
     template_name = 'main/create_item_form.html'
     fields = '__all__'
     success_url = reverse_lazy('dashboard')
 
-class UpdateItem(UpdateView):
+class UpdateItem(LoginRequiredMixin,UpdateView):
     model = Inventory
     fields = '__all__'
     template_name = 'main/create_item_form.html'
     success_url = reverse_lazy('dashboard')
 
-class DeleteItem(DeleteView):
+class DeleteItem(LoginRequiredMixin,DeleteView):
     model = Inventory
     context_object_name = 'item'
     template_name = 'main/item_confirm_delete.html'
