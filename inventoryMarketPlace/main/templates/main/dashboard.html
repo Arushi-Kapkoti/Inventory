@@ -2,6 +2,8 @@
 
 {% block content %}
 <h1> Welcome </h1>
+<h2>{{request.user}}</h2>
+<a href = "{% url 'logout' %}"> Logout </a>
 <div>
     <table border="1px solid black">
         <tr>
