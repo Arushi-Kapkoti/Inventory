@@ -133,3 +133,6 @@ STATICFILES_DIRS = [
 
 #Custom User Settings
 AUTH_USER_MODEL = 'main.CustomUser'
+
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGOUT_REDIRECT_URL = 'login'
