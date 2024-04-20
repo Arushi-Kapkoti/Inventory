@@ -37,6 +37,13 @@ class StockList(LoginRequiredMixin,ListView):
     template_name = 'main/dashboard.html'
     context_object_name = 'items'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['items'] = context['items'].filter(user=self.request.user)
+        context['count'] = context['items'].count() 
+        #context['market_count'] = context['items'].filter(sale_status='on_sale')
+        return context
+
 class ItemDetail(LoginRequiredMixin,DetailView):
     model = Inventory
     template_name = 'main/item_detail.html'
@@ -45,12 +52,16 @@ class ItemDetail(LoginRequiredMixin,DetailView):
 class CreateItem(LoginRequiredMixin,CreateView):
     model = Inventory
     template_name = 'main/create_item_form.html'
-    fields = '__all__'
+    fields = ['name','cost_per_item','quantity_in_stock','quantity_sold','sales','item_type','sale_status','item_image']
     success_url = reverse_lazy('dashboard')
+
+    def fomr_valid(self, form):
+        form.instance.user = self.request.user
+        return super(CreateItem, self).form_valid(form)
 
 class UpdateItem(LoginRequiredMixin,UpdateView):
     model = Inventory
-    fields = '__all__'
+    fields = ['name','cost_per_item','quantity_in_stock','quantity_sold','sales','item_type','sale_status','item_image']
     template_name = 'main/create_item_form.html'
     success_url = reverse_lazy('dashboard')
 

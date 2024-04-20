@@ -33,8 +33,13 @@
             <td><a href = "{% url 'update-item' item.id %}"> Update </a></td>
             <td><a href = "{% url 'delete-item' item.id%}"> Delete </a></td>
         </tr>
+        {% empty %}
+            <h1> No Items do display </h1>
         {% endfor %}
     </table>
+    No. of items: {{count}}
+    <br>
+    <!-- No. of items on sale: {{market_count}} -->
 </div>
 <a href = "{% url 'create-item' %}">Create new item</a>
 <!-- {% for item in items %}
