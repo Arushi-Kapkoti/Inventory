@@ -48,13 +48,20 @@ class CustomUser(AbstractUser):
     state = models.CharField(max_length=40, choices = STATES)
     phone_number = models.PositiveIntegerField(null = True, blank = True)
 
-# class Inventory(models.Model):
-#     name = models.CharField(max_length=100,null = False, blank = False)
-#     cost_per_item = models.DecimalField(max_digits=19,decimal_places=2,null = False, blank = False)
-#     quantity_in_stock = models.IntegerField(null = False, blank = False)
-#     quantity_sold = models.IntegerField(null = True, blank = True)
-#     sales = models.DecimalField(max_digits=19,decimal_places=2, null = True, blank = True)
-#     stock_date = models.DateField(auto_now_add=True)
+class Inventory(models.Model):
+    ITEMS = {
+        "crop":"crop",
+        "tools":"tools",
+        "seeds and chemicals": "seeds and chemicals"
+    }
+    user = models.ForeignKey(CustomUser, on_delete = models.CASCADE,null = True, blank = True)
+    name = models.CharField(max_length=100,null = False, blank = False)
+    cost_per_item = models.DecimalField(max_digits=19,decimal_places=2,null = False, blank = False)
+    quantity_in_stock = models.IntegerField(null = False, blank = False)
+    quantity_sold = models.IntegerField(null = True, blank = True)
+    sales = models.DecimalField(max_digits=19,decimal_places=2, null = True, blank = True)
+    stock_date = models.DateField(auto_now_add=True)
+    item_type = models.CharField(max_length=40, choices = ITEMS, default = 'crop')
 
-#     def __str__(self) -> str:
-#         return self.name
+    def __str__(self) -> str:
+        return self.name

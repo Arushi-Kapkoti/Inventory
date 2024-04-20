@@ -5,5 +5,6 @@ urlpatterns = [
     path('',views.marketPlace, name = 'market-place'),
     path('register/',views.SignUpView.as_view(), name = 'register'),
     path('login/',views.UserLoginPageView.as_view(), name = 'login'),
-    path('dashboard/',views.dashboard, name = 'dashboard'),
+    path('dashboard/',views.StockList.as_view(), name = 'dashboard'),
+    path('dashboard/item/<int:pk>/',views.ItemDetail.as_view(), name = 'item-detail'),
 ]

@@ -1,0 +1,28 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<h1> Welcome </h1>
+<div>
+    <table border="1px solid black">
+        <tr>
+            <th> Item Name </th>
+            <th> Cost Per Item</th>
+            <th> Type </th>
+            <th> Details </th>
+        </tr>
+        {% for item in items %}
+        <tr>
+            <td>{{item.name}}</td>
+            <td>{{item.cost_per_item}}</td>
+            <td>{{item.item_type}}</td>
+            <td><a href = "{% url 'item-detail' item.id %}">Click</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<!-- {% for item in items %}
+    {{item}}
+{% empty %}
+    <h3>No items in the list</h3>
+{% endfor %} -->
+{% endblock content %}
