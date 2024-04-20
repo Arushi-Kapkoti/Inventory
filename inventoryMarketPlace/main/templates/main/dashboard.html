@@ -12,6 +12,7 @@
             <th> Image </th>
             <th> Details </th>
             <th> Update </th>
+            <th> Delete Item </th>
         </tr>
         {% for item in items %}
         <tr>
@@ -26,8 +27,9 @@
             {% else %}
                 <img src="/static/noImage.png" width="200px" height="200px" style="border-radius: 5%;">
             {% endif %}</td>
-            <td><a href = "{% url 'item-detail' item.id %}">Click</a></td>
+            <td><a href = "{% url 'item-detail' item.id %}"> View </a></td>
             <td><a href = "{% url 'update-item' item.id %}"> Update </a></td>
+            <td><a href = "{% url 'delete-item' item.id%}"> Delete </a></td>
         </tr>
         {% endfor %}
     </table>

@@ -9,4 +9,5 @@ urlpatterns = [
     path('dashboard/item/<int:pk>/',views.ItemDetail.as_view(), name = 'item-detail'),
     path('dashboard/item-create/',views.CreateItem.as_view(), name = 'create-item'),
     path('dashboard/item-update/<int:pk>/',views.UpdateItem.as_view(), name = 'update-item'),
+    path('dashboard/item-delete/<int:pk>/',views.DeleteItem.as_view(), name = 'delete-item'),
 ]
