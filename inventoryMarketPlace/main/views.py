@@ -6,7 +6,7 @@ from main.form import CustomUserCreationForm
 from django.contrib.auth.views import LoginView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 
 from django.urls import reverse_lazy
 # Create your views here.
@@ -34,6 +34,12 @@ class CreateItem(CreateView):
     model = Inventory
     template_name = 'main/create_item_form.html'
     fields = '__all__'
+    success_url = reverse_lazy('dashboard')
+
+class UpdateItem(UpdateView):
+    model = Inventory
+    fields = '__all__'
+    template_name = 'main/create_item_form.html'
     success_url = reverse_lazy('dashboard')
 
 def marketPlace(request):
