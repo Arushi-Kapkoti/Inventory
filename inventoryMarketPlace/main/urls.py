@@ -7,4 +7,5 @@ urlpatterns = [
     path('login/',views.UserLoginPageView.as_view(), name = 'login'),
     path('dashboard/',views.StockList.as_view(), name = 'dashboard'),
     path('dashboard/item/<int:pk>/',views.ItemDetail.as_view(), name = 'item-detail'),
+    path('dashboard/item-create/',views.CreateItem.as_view(), name = 'create-item'),
 ]

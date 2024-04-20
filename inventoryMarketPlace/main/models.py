@@ -54,6 +54,10 @@ class Inventory(models.Model):
         "tools":"tools",
         "seeds and chemicals": "seeds and chemicals"
     }
+    STATUS = {
+        "on_sale": "on_sale",
+        "not_on_sale": "not_on_sale"
+    }
     user = models.ForeignKey(CustomUser, on_delete = models.CASCADE,null = True, blank = True)
     name = models.CharField(max_length=100,null = False, blank = False)
     cost_per_item = models.DecimalField(max_digits=19,decimal_places=2,null = False, blank = False)
@@ -62,6 +66,8 @@ class Inventory(models.Model):
     sales = models.DecimalField(max_digits=19,decimal_places=2, null = True, blank = True)
     stock_date = models.DateField(auto_now_add=True)
     item_type = models.CharField(max_length=40, choices = ITEMS, default = 'crop')
+    sale_status = models.CharField(max_length=40, choices = STATUS, default = 'not_on_sale')
+    item_image = models.ImageField(null=True,blank=True,upload_to="images/")
 
     def __str__(self) -> str:
         return self.name

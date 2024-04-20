@@ -8,6 +8,8 @@
             <th> Item Name </th>
             <th> Cost Per Item</th>
             <th> Type </th>
+            <th> Status </th>
+            <th> Image </th>
             <th> Details </th>
         </tr>
         {% for item in items %}
@@ -15,11 +17,20 @@
             <td>{{item.name}}</td>
             <td>{{item.cost_per_item}}</td>
             <td>{{item.item_type}}</td>
+            <td>{{item.sale_status}}</td>
+            <td>
+            {% if item.item_image %}
+                {{item.item_image.url}}
+                <img src="{{main.item_image.url}}" width="200px" height="200px" style="border-radius: 5%;">
+            {% else %}
+                <img src="/static/noImage.png" width="200px" height="200px" style="border-radius: 5%;">
+            {% endif %}</td>
             <td><a href = "{% url 'item-detail' item.id %}">Click</a></td>
         </tr>
         {% endfor %}
     </table>
 </div>
+<a href = "{% url 'create-item' %}">Create new item</a>
 <!-- {% for item in items %}
     {{item}}
 {% empty %}
