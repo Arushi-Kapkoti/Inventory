@@ -3,7 +3,6 @@
 {% block content %}
 <h1> Welcome </h1>
 <h2>{{request.user}}</h2>
-<a href = "{% url 'logout' %}"> Logout </a>
 <div>
     <table border="1px solid black">
         <tr>
@@ -11,7 +10,7 @@
             <th> Cost Per Item</th>
             <th> Type </th>
             <th> Status </th>
-            <th> Image </th>
+            <!-- <th> Image </th> -->
             <th> Details </th>
             <th> Update </th>
             <th> Delete Item </th>
@@ -22,13 +21,13 @@
             <td>{{item.cost_per_item}}</td>
             <td>{{item.item_type}}</td>
             <td>{{item.sale_status}}</td>
-            <td>
+            <!-- <td>
             {% if item.item_image %}
                 {{item.item_image.url}}
                 <img src="{{main.item_image.url}}" width="200px" height="200px" style="border-radius: 5%;">
             {% else %}
                 <img src="/static/noImage.png" width="200px" height="200px" style="border-radius: 5%;">
-            {% endif %}</td>
+            {% endif %}</td> -->
             <td><a href = "{% url 'item-detail' item.id %}"> View </a></td>
             <td><a href = "{% url 'update-item' item.id %}"> Update </a></td>
             <td><a href = "{% url 'delete-item' item.id%}"> Delete </a></td>

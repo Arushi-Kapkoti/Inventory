@@ -3,10 +3,11 @@
 {% block content %}
 <h1>Item: {{item}}</h1>
 {% if item.item_image %}
-    {{item.item_image.url}}
-        <img src="{{main.item_image.url}}" width="200px" height="200px" style="border-radius: 5%;">
+        {{item.item_image.url}}
+        <img src = "/media/images/seed.png">
+        <img src="{{ main.item_image.url }}" width="200px" height="200px" style="border-radius: 5%;">
 {% else %}
         <img src="/static/noImage.png" width="200px" height="200px" style="border-radius: 5%;">
 {% endif %}
-<!-- {{item.item_image.url}} -->
+
 {% endblock content %}

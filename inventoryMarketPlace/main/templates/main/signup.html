@@ -1,7 +1,9 @@
 {% extends 'main/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
 
 {% block content %}
-<h1> Register </h1>
+<!-- <h1> Register </h1>
 <div>
     <form method = 'POST'>
         {% csrf_token %}
@@ -9,5 +11,39 @@
         <input type="submit" value="Register">
     </form>
     <a href = "{% url 'login' %}">Login</a>
+</div> -->
+<div class="content-section">
+    {{ form.media }} 
+    <form method="POST">
+        <fieldset>
+            <legend class="border-bottom pb-2 mb-4 text-center">Register Form</legend>
+            {% csrf_token %}
+            <div class="form-group">
+                <label>{{form.username.label}}</label><br>
+                {{form.username}}<br>
+                <label>{{form.first_name.label}}</label><br>
+                {{form.first_name}}<br>
+                <label>{{form.last_name.label}}</label><br>
+                {{form.last_name}}<br>
+                <label>{{form.aadhar.label}}</label><br>
+                {{form.aadhar}}<br>
+                <label>{{form.phone_number.label}}</label><br>
+                {{form.phone_number}}
+                <label>{{form.adress.label}}</label><br>
+                {{form.adress}}<br>
+                <label>{{form.state.label}}</label><br>
+                {{form.state}}<br>
+                <label>{{form.password1.label}}</label><br>
+                {{form.password1}}<br>
+                <label>{{form.password2.label}}</label><br>
+                {{form.password2}}<br>
+            </div>
+            <div class="form-group pt-4">
+                <button class="btn btn-outline-success" type="submit">Login</button>
+            </div>
+            <br>
+            <p> Already have an account? <a href = "{% url 'login' %}">Login Here</a> </p>
+      </fieldset>
+    </form>
 </div>
 {% endblock content %}
