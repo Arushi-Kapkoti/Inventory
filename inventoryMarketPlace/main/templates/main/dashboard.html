@@ -4,34 +4,6 @@
 <br>
 <h1> Welcome {{request.user}} </h1>
 <br>
-<!-- <div>
-    <table border="1px solid black">
-        <tr>
-            <th> Item Name </th>
-            <th> Cost Per Item</th>
-            <th> Type </th>
-            <th> Status </th>
-            <th> Details </th>
-            <th> Update </th>
-            <th> Delete Item </th>
-        </tr>
-        {% for item in items %}
-        <tr>
-            <td>{{item.name}}</td>
-            <td>{{item.cost_per_item}}</td>
-            <td>{{item.item_type}}</td>
-            <td>{{item.sale_status}}</td>
-            <td><a href = "{% url 'item-detail' item.id %}"> View </a></td>
-            <td><a href = "{% url 'update-item' item.id %}"> Update </a></td>
-            <td><a href = "{% url 'delete-item' item.id%}"> Delete </a></td>
-        </tr>
-        {% empty %}
-            <h1> No Items do display </h1>
-        {% endfor %}
-    </table>
-    No. of items: {{count}}
-    <br>
-</div> -->
 
 <div class="content-section">
     <p style = "padding: 5px; font-size: 25px;"><b>Total number of items: {{count}}</b></p>
@@ -46,6 +18,7 @@
             <th scope="col">Cost Per Item</th>
             <th scope="col">Sales/Revenue</th>
             <th scope="col">Stock Date</th>
+            <th scope="col">Sale Status</th>
             <!-- <th scope="col">Last Sales Date</th> -->
           </tr>
         </thead>
@@ -59,6 +32,7 @@
               <th scope="col">{{ inventory.cost_per_item }}</th>
               <th scope="col">{{ inventory.sales }}</th>
               <th scope="col">{{ inventory.stock_date }}</th>
+              <th scope="col">{{inventory.sale_status}}</th>
               <!-- <th scope="col">{{ inventory.last_sales_date }}</th> -->
             </tr>
           {% endfor %}

@@ -49,21 +49,43 @@ class ItemDetail(LoginRequiredMixin,DetailView):
     template_name = 'main/item_detail.html'
     context_object_name = 'item'
 
-class CreateItem(LoginRequiredMixin,CreateView):
+class CreateItem(LoginRequiredMixin, CreateView):
     model = Inventory
     template_name = 'main/create_item_form.html'
-    fields = ['name','cost_per_item','quantity_in_stock','quantity_sold','sales','item_type','sale_status','item_image']
+    fields = ['name', 'item_type', 'cost_per_item', 'quantity_in_stock', 'quantity_sold', 'sale_status','item_image']
     success_url = reverse_lazy('dashboard')
 
-    def fomr_valid(self, form):
+    def form_valid(self, form):
         form.instance.user = self.request.user
-        return super(CreateItem, self).form_valid(form)
 
-class UpdateItem(LoginRequiredMixin,UpdateView):
+        # Calculate sales if quantity_sold is provided
+        quantity_sold = form.cleaned_data['quantity_sold']
+        cost_per_item = form.cleaned_data['cost_per_item']
+        if quantity_sold is not None:
+            form.instance.sales = quantity_sold * cost_per_item
+
+        return super().form_valid(form)
+
+# class UpdateItem(LoginRequiredMixin,UpdateView):
+#     model = Inventory
+#     fields = ['name','cost_per_item','quantity_in_stock','quantity_sold','sales','item_type','sale_status','item_image']
+#     template_name = 'main/create_item_form.html'
+#     success_url = reverse_lazy('dashboard')
+
+class UpdateItem(LoginRequiredMixin, UpdateView):
     model = Inventory
-    fields = ['name','cost_per_item','quantity_in_stock','quantity_sold','sales','item_type','sale_status','item_image']
+    fields = ['name', 'item_type', 'cost_per_item', 'quantity_in_stock', 'quantity_sold', 'sale_status','item_image']
     template_name = 'main/create_item_form.html'
     success_url = reverse_lazy('dashboard')
+
+    def form_valid(self, form):
+        # Calculate sales if quantity_sold is updated
+        quantity_sold = form.cleaned_data['quantity_sold']
+        cost_per_item = form.instance.cost_per_item  # Use instance's current cost_per_item
+        if quantity_sold is not None:
+            form.instance.sales = quantity_sold * cost_per_item
+
+        return super().form_valid(form)
 
 class DeleteItem(LoginRequiredMixin,DeleteView):
     model = Inventory
