@@ -123,7 +123,7 @@
 <body>
     <nav>
         <ul class="left-links">
-            <li><a href="#">Home</a></li>
+            <!-- <li><a href="#">Home</a></li> -->
             <li><a href="{% url 'market-place' %}">MarketPlace</a></li>
             <!-- <li><a href="#">ChatBot</a></li> -->
         </ul>
@@ -132,7 +132,7 @@
             <h1>KrishiKaya</h1>
         </div>
         <ul class="right-links">
-            <li><a href="#">Contact Us</a></li>
+            <!-- <li><a href="#">Contact Us</a></li> -->
             {% if request.user.is_authenticated %}
                 <li><a href="{% url 'logout' %}">Logout</a></li>
             {% else %}

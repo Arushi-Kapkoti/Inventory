@@ -2,6 +2,28 @@
 {% load static %}
 
 {% block content %}
+<div class="search" style="margin: 30px; font-size:22px;">
+    <form method="GET" class="filter-form">
+        <label for="state-filter">Filter by State:</label>
+        <select name="state" id="state-filter">
+            <option value="">All</option>
+            {% for state in states %}
+                <option value="{{ state }}">{{ state }}</option>
+            {% endfor %}
+        </select>
+    
+        <label for="type-filter">Filter by Item Type:</label>
+        <select name="type" id="type-filter">
+            <option value="">All</option>
+            {% for type in item_types %}
+                <option value="{{ type }}">{{ type }}</option>
+            {% endfor %}
+        </select>
+    
+        <button type="submit" class = "custom-button">Apply Filters</button>
+    </form>
+</div>
+
 <div class="outergrid">
     {% for item in items %}
     {% if item.sale_status == 'on_sale' %}

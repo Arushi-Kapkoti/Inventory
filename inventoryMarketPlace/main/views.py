@@ -142,3 +142,21 @@ class marketPlace(ListView):
     model = Inventory
     template_name = 'main/marketPlace.html'
     context_object_name = 'items'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        state_filter = self.request.GET.get('state')
+        type_filter = self.request.GET.get('type')
+
+        if state_filter:
+            queryset = queryset.filter(user__state=state_filter)
+        if type_filter:
+            queryset = queryset.filter(item_type=type_filter)
+
+        return queryset.distinct()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['states'] = Inventory.objects.values_list('user__state', flat=True).distinct()
+        context['item_types'] = Inventory.objects.values_list('item_type', flat=True).distinct()
+        return context
