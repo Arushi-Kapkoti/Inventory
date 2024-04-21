@@ -78,7 +78,7 @@ class CreateItem(LoginRequiredMixin, CreateView):
 
 class UpdateItem(LoginRequiredMixin,UpdateView):
     model = Inventory
-    fields = ['name', 'item_type', 'cost_per_item', 'quantity_in_stock', 'quantity_sold']
+    fields = ['name', 'item_type', 'cost_per_item', 'quantity_in_stock', 'quantity_sold','sale_status','item_image']
     template_name = 'main/create_item_form.html'
     success_url = reverse_lazy('dashboard')
 
