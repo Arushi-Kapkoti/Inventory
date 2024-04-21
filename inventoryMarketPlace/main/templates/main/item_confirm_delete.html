@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<a href = "{% url 'dashboard' %}">Go Back </a>
+<a href = "{% url 'item-detail' inventory.id %}">Go Back </a>
 <form method = 'POST'>
     {% csrf_token %}
     <p> Are you sure you want to delete {{item}}? </p>
