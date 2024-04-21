@@ -15,6 +15,7 @@ from django.utils import timezone
 from django_pandas.io import read_frame
 import plotly
 import plotly.express as px
+import json
 
 from django.urls import reverse_lazy
 # Create your views here.
@@ -106,8 +107,36 @@ class DeleteItem(LoginRequiredMixin,DeleteView):
 
 @login_required
 def analytics(request):
-    inventories = Inventory.objects.all()
+    inventories = Inventory.objects.filter(user=request.user)
     df = read_frame(inventories)
+
+    sales_graph = df.groupby(by='last_sales_date', as_index=False,sort=False)['sales'].sum()
+    sales_graph = px.line(sales_graph, x = sales_graph.last_sales_date, y = sales_graph.sales, title='Sales Trend')
+    sales_graph = json.dumps(sales_graph,cls=plotly.utils.PlotlyJSONEncoder)
+
+    best_performing_product_df = df.groupby(by='name').sum().sort_values(by="quantity_sold")
+    best_performing_product = px.bar(best_performing_product_df,
+                                        x = best_performing_product_df.index,
+                                        y = best_performing_product_df.quantity_sold,
+                                        title = "Best Performing Product")
+    best_performing_product_df = json.dumps(best_performing_product,cls=plotly.utils.PlotlyJSONEncoder)
+
+    most_product_in_stock_df = df.groupby(by='name').sum().sort_values(by='quantity_in_stock')
+    most_product_in_stock = px.pie(
+        most_product_in_stock_df,
+        names = most_product_in_stock_df.index,
+        values = most_product_in_stock_df.quantity_in_stock,
+        title = "Most Product in Stock"
+    )
+    most_product_in_stock = json.dumps(most_product_in_stock,cls=plotly.utils.PlotlyJSONEncoder)
+
+    context = {
+        "sales_graph": sales_graph,
+        "best_performing_product": best_performing_product_df,
+        "most_product_in_stock": most_product_in_stock
+    }
+    
+    return render(request, 'main/analytics.html',context = context)
 
 
 def marketPlace(request):

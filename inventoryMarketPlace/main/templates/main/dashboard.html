@@ -3,8 +3,6 @@
 {% block content %}
 <br>
 <h1> Welcome {{request.user}} </h1>
-<br>
-
 <div class="content-section">
     <p style = "padding: 5px; font-size: 25px;"><b>Total number of items: {{count}}</b></p>
     
@@ -39,6 +37,7 @@
         </tbody>
     </table>
     <button class="custom-button" onclick="window.location=`{% url 'create-item' %}`">Create New Item</button>
+    <button class="custom-button" style="margin-left: 20px;" onclick="window.location=`{% url 'analytics' %}`">Analytics</button>
 </div>
 
 {% endblock content %}
