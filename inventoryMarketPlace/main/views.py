@@ -138,6 +138,7 @@ def analytics(request):
     
     return render(request, 'main/analytics.html',context = context)
 
-
-def marketPlace(request):
-    return HttpResponse('MarketPlace')
+class marketPlace(ListView):
+    model = Inventory
+    template_name = 'main/marketPlace.html'
+    context_object_name = 'items'

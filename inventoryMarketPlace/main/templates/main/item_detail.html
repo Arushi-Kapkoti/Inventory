@@ -1,14 +1,15 @@
 {% extends 'main/base.html' %}
-{% block content %}
-{% if item.item_image %}
-{{item.item_image.url}}
-        <img src = "/media/images/seed.png">
-        <img src="{{ main.item_image.url }}" width="200px" height="200px" style="border-radius: 5%;">
-{% else %}
-        <img src="/static/noImage.png" width="200px" height="200px" style="border-radius: 5%;">
-{% endif %}
+{% load static %}
 
-  <div class="content-section">     
+{% block content %}
+  <div class="content-section">    
+    <div style="text-align: center;">
+      {% if item.item_image %}
+        <img src="{{ item.item_image.url }}" width="200px" height="200px" style="border-radius: 5%;">
+      {% else %}
+        <img src="{% static 'noImage.png' %}" width="200px" height="200px" style="border-radius: 5%;">
+      {% endif %}
+    </div> 
     <div class="row mx-auto justify-content-center">
 
       <div class="card m-4" style="width: 18rem;">

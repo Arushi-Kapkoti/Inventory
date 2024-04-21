@@ -87,12 +87,44 @@
             cursor: pointer; /* Hand cursor on hover */
         }
 
+        .outergrid{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            margin-bottom: 3rem;
+        }
+
+        .gridcell{
+            /* padding: 2em; */
+            max-width: 550px;
+            border-radius: 1em;
+            margin: auto;
+            background-color: #fff;
+            -webkit-box-shadow: 2px 2px 13px -4px rgba(0,0,0,0.21);
+            box-shadow: 2px 2px 13px -4px rgba(0,0,0,0.21);
+            width: 300px;
+            height: 530px;
+            margin-top: 70px;
+            display: grid;
+            grid-template-rows: 6fr 0.5fr 3.5fr;
+            place-self: center;
+            place-items: center;
+        }
+
+        .gridcell:hover{
+            border: 2px solid black;
+            box-shadow: 0 0 10px rgba(242, 241, 241, 0.5);
+        }
+
+        .details{
+            margin: 10px;
+        }
+
 </style>
 <body>
     <nav>
         <ul class="left-links">
             <li><a href="#">Home</a></li>
-            <li><a href="#">MarketPlace</a></li>
+            <li><a href="{% url 'market-place' %}">MarketPlace</a></li>
             <!-- <li><a href="#">ChatBot</a></li> -->
         </ul>
         <div class="logo">
@@ -103,6 +135,8 @@
             <li><a href="#">ChatBot</a></li>
             {% if request.user.is_authenticated %}
                 <li><a href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+            <li><a href="{% url 'login' %}">Login</a></li>
             {% endif %}
         </ul>
     </nav>
